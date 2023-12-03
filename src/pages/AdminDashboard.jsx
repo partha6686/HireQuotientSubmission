@@ -3,6 +3,7 @@ import SearchBar from "../components/SearchBar";
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
 import { getApi } from "../ApiServices";
+import LoadingSpinnerComponent from "react-spinners-components";
 
 const AdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,12 +62,12 @@ const AdminDashboard = () => {
   }, [usersData.length]);
 
   useEffect(() => {
-    if(usersDataCopy!==null){
+    if (usersDataCopy !== null) {
       setTotalPagesCopy(Math.ceil(usersDataCopy?.length / 10));
-    }else{
-      setTotalPagesCopy(null)
+    } else {
+      setTotalPagesCopy(null);
     }
-    
+
     return () => {
       setTotalPagesCopy(null);
     };
@@ -139,7 +140,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4 ">
-      {!isLoading && (
+      {!isLoading ? (
         <>
           <SearchBar
             deleteAllSelected={deleteAllSelected}
@@ -163,6 +164,14 @@ const AdminDashboard = () => {
             goToPage={goToPage}
           />
         </>
+      ) : (
+        <div className="h-screen flex items-center justify-center">
+          <LoadingSpinnerComponent
+            type={"Rolling"}
+            color={"#3b81f6"}
+            size={"100px"}
+          />
+        </div>
       )}
     </div>
   );
