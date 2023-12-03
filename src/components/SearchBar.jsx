@@ -47,7 +47,7 @@ const SearchBar = ({ deleteAllSelected, seachUser, resetSearch }) => {
         </button>
         <button
           onClick={() => {setSearchValue("");resetSearch()}}
-          className="font-medium text-sm text-orange-400 dark:text-orange-300 mt-1 flex gap-1 items-center"
+          className="font-medium text-sm text-orange-500 dark:text-orange-300 mt-1 flex gap-1 items-center"
         >
           <FaInfoCircle size={18} />
          <p>Reset Search Filters</p> 
@@ -56,8 +56,8 @@ const SearchBar = ({ deleteAllSelected, seachUser, resetSearch }) => {
       <button
         onClick={() =>
           confirmAlert({
-            title: "Confirm to submit",
-            message: "Are you sure to do this.",
+            title: "",
+            message: "Are you sure you want to delete all the selected users?",
             buttons: [
               {
                 label: "Yes",

@@ -120,8 +120,8 @@ const RowItem = ({
                 className="font-medium text-red-600 dark:text-red-500 hover:underline"
                 onClick={() =>
                   confirmAlert({
-                    title: "Confirm to submit",
-                    message: "Are you sure to do this.",
+                    title: "",
+                    message: "Are you sure you want to delete the user?",
                     buttons: [
                       {
                         label: "Yes",
