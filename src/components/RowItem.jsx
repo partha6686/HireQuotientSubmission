@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEdit, FaCheck } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const RowItem = ({ item, deleteItem, editItem }) => {
+const RowItem = ({
+  item,
+  deleteItem,
+  editItem,
+  isChecked,
+  addRemoveSelectedId,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     id: item.id,
@@ -12,6 +18,21 @@ const RowItem = ({ item, deleteItem, editItem }) => {
     email: item.email,
     role: item.role,
   });
+  const [isCheckedValue, setIsCheckedValue] = useState(isChecked);
+
+  useEffect(() => {
+    setIsCheckedValue(isChecked);
+
+    return () => {
+      setIsCheckedValue(false);
+    };
+  }, [isChecked]);
+
+  useEffect(() => {
+    if(isCheckedValue)
+      console.log("ID checked: ", item.id);
+    addRemoveSelectedId(item.id, isCheckedValue);
+  }, [isCheckedValue]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,6 +45,8 @@ const RowItem = ({ item, deleteItem, editItem }) => {
             <input
               id="checkbox-table-search-1"
               type="checkbox"
+              onChange={() => setIsCheckedValue(!isCheckedValue)}
+              checked={isCheckedValue}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
             <label htmlFor="checkbox-table-search-1" className="sr-only">

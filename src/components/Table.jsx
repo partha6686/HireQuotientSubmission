@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import RowItem from "./RowItem";
 
-const Table = ({ data, page, deleteItem, editItem }) => {
+const Table = ({ data, page, deleteItem, editItem, addRemoveSelectedId }) => {
+  const [allChecked, setAllChecked] = useState(false);
 
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -12,6 +13,8 @@ const Table = ({ data, page, deleteItem, editItem }) => {
               <input
                 id="checkbox-all-search"
                 type="checkbox"
+                onChange={()=>setAllChecked(!allChecked)}
+                checked={allChecked}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
               <label htmlFor="checkbox-all-search" className="sr-only">
@@ -35,7 +38,7 @@ const Table = ({ data, page, deleteItem, editItem }) => {
       </thead>
       <tbody>
         {data.slice(page*10, page*10 + 10)?.map((item) => (
-          <RowItem key={item?.id} item={item} deleteItem={deleteItem} editItem={editItem} />
+          <RowItem key={item?.id} item={item} deleteItem={deleteItem} editItem={editItem} isChecked={allChecked} addRemoveSelectedId={addRemoveSelectedId} />
         ))}
       </tbody>
     </table>

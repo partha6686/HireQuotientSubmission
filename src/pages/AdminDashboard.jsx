@@ -13,6 +13,8 @@ const AdminDashboard = () => {
   });
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [deleteAllChecked, setDeleteAllChecked] = useState(false);
 
   const fetchUsers = async () => {
     setIsLoading(true);
@@ -53,22 +55,49 @@ const AdminDashboard = () => {
   };
 
   const deleteItem = (id) => {
-    const temp = usersData.filter((item)=>item.id!=id)
-    setUsersData(temp)
-  }
+    const temp = usersData.filter((item) => item.id != id);
+    setUsersData(temp);
+  };
 
   const editItem = (item) => {
-    const updatedData = usersData.map(data=>data.id==item.id? item: data);
+    const updatedData = usersData.map((data) =>
+      data.id == item.id ? item : data
+    );
     console.log(updatedData, item);
-    setUsersData(updatedData)
-  }
+    setUsersData(updatedData);
+  };
+
+  const addRemoveSelectedId = (id, isCheckedValue) => {
+    if (isCheckedValue) {
+      console.log("HERE ID:", id);
+      // setSelectedIds([...selectedIds, id]);
+      setSelectedIds(prev=>[...prev,id])
+    } else {
+      setSelectedIds((prev) => prev?.filter((itemId) => itemId !== id));
+    }
+    console.log(selectedIds);
+  };
+
+  const deleteAllSelected = () => {
+    console.log(selectedIds);
+    setUsersData((prev) =>
+      prev.filter((item) => !selectedIds.includes(item.id))
+    );
+    setSelectedIds([])
+  };
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4 ">
       {!isLoading && (
         <>
-          <SearchBar />
-          <Table data={usersData} page={page} deleteItem={deleteItem} editItem={editItem} />
+          <SearchBar deleteAllSelected={deleteAllSelected} />
+          <Table
+            data={usersData}
+            page={page}
+            deleteItem={deleteItem}
+            editItem={editItem}
+            addRemoveSelectedId={addRemoveSelectedId}
+          />
           <Pagination
             totalData={usersData.length}
             currPage={page}
