@@ -57,12 +57,18 @@ const AdminDashboard = () => {
     setUsersData(temp)
   }
 
+  const editItem = (item) => {
+    const updatedData = usersData.map(data=>data.id==item.id? item: data);
+    console.log(updatedData, item);
+    setUsersData(updatedData)
+  }
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4 ">
       {!isLoading && (
         <>
           <SearchBar />
-          <Table data={usersData} page={page} deleteItem={deleteItem} />
+          <Table data={usersData} page={page} deleteItem={deleteItem} editItem={editItem} />
           <Pagination
             totalData={usersData.length}
             currPage={page}
