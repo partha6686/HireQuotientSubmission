@@ -1,6 +1,8 @@
 import React from "react";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 
-const RowItem = ({item}) => {
+const RowItem = ({item, deleteItem}) => {
   return (
     <>
       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -24,13 +26,18 @@ const RowItem = ({item}) => {
         </th>
         <td className="px-6 py-4">{item?.email}</td>
         <td className="px-6 py-4">{item?.role}</td>
-        <td className="px-6 py-4">
-          <a
-            href="#"
+        <td className="px-6 py-4 space-x-4">
+          <button
             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
-            Edit
-          </a>
+            <FaEdit size={18} />
+          </button>
+          <button
+            className="font-medium text-red-600 dark:text-red-500 hover:underline"
+            onClick={()=>deleteItem(item.id)}
+          >
+            <MdDeleteOutline size={20} />
+          </button>
         </td>
       </tr>
     </>

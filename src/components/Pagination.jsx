@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Pagination = ({ currPage, totalPages, goToPage }) => {
+const Pagination = ({ totalData, currPage, totalPages, goToPage }) => {
   const [tempArray, setTempArray] = useState([]);
 
   useEffect(() => {
@@ -19,11 +19,11 @@ const Pagination = ({ currPage, totalPages, goToPage }) => {
       <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
         Showing{" "}
         <span className="font-semibold text-gray-900 dark:text-white">
-          1-10
+          {`${currPage*10 + 1}-${currPage*10 + 10 > totalData? totalData: currPage*10 + 10}`}
         </span>{" "}
         of{" "}
         <span className="font-semibold text-gray-900 dark:text-white">
-          1000
+          {totalData}
         </span>
       </span>
       <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
@@ -39,7 +39,6 @@ const Pagination = ({ currPage, totalPages, goToPage }) => {
           <li key={item}>
             <button
               onClick={() => goToPage(item)}
-              // aria-current={item == 1 ? "page" : null}
               className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 ${currPage==item? "bg-gray-100 dark:bg-gray-700 ":"bg-white dark:bg-gray-800"} border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
             >
               {item + 1}

@@ -1,8 +1,7 @@
 import React from "react";
 import RowItem from "./RowItem";
 
-const Table = ({ data, page }) => {
-  // console.log("DATA", data);
+const Table = ({ data, page, deleteItem }) => {
 
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -36,7 +35,7 @@ const Table = ({ data, page }) => {
       </thead>
       <tbody>
         {data.slice(page*10, page*10 + 10)?.map((item) => (
-          <RowItem key={item?.id} item={item} />
+          <RowItem key={item?.id} item={item} deleteItem={deleteItem} />
         ))}
       </tbody>
     </table>

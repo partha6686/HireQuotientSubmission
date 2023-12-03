@@ -52,13 +52,19 @@ const AdminDashboard = () => {
     if (num >= 0 && num < totalPages) setPage(num);
   };
 
+  const deleteItem = (id) => {
+    const temp = usersData.filter((item)=>item.id!=id)
+    setUsersData(temp)
+  }
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4 ">
       {!isLoading && (
         <>
           <SearchBar />
-          <Table data={usersData} page={page} />
+          <Table data={usersData} page={page} deleteItem={deleteItem} />
           <Pagination
+            totalData={usersData.length}
             currPage={page}
             totalPages={totalPages}
             goToPage={goToPage}
