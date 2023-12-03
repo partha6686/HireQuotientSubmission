@@ -37,7 +37,7 @@ const Table = ({ data, page, deleteItem, editItem, addRemoveSelectedId }) => {
         </tr>
       </thead>
       <tbody>
-        {data.slice(page*10, page*10 + 10)?.map((item) => (
+        {data?.slice(page*10, page*10 + 10)?.map((item) => (
           <RowItem key={item?.id} item={item} deleteItem={deleteItem} editItem={editItem} isChecked={allChecked} addRemoveSelectedId={addRemoveSelectedId} />
         ))}
       </tbody>
